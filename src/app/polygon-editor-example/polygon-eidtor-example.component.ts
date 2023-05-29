@@ -117,7 +117,6 @@ export class PolygonsEditorExampleComponent implements OnInit {
     for (let i = 0; i < 6; i++) {
       outColor += letters[Math.floor(Math.random() * 16)];
     }
-
     const r = parseInt(outColor.slice(1, 3), 16) / 255;
     const g = parseInt(outColor.slice(3, 5), 16) / 255;
     const b = parseInt(outColor.slice(5, 7), 16) / 255;
@@ -131,6 +130,8 @@ export class PolygonsEditorExampleComponent implements OnInit {
     this.isEditMode = true;
     const color = this.generateRandomColor();
     const polygon = this.polygonsEditor.create({
+      allowDrag: false,
+      // clampHeightTo3D: true,
       polygonProps: {
         material: Cesium.Color.TRANSPARENT,
       },
@@ -243,4 +244,35 @@ export class PolygonsEditorExampleComponent implements OnInit {
 
     reader.readAsText(file);
   }
+
+  // getPolygonCenter(positions: Cesium.Cartesian3[]): Cesium.Cartesian3 {
+  //   const length = positions.length;
+  //   let x = 0;
+  //   let y = 0;
+  //   let z = 0;
+
+  //   for (let i = 0; i < length; i++) {
+  //     x += positions[i].x;
+  //     y += positions[i].y;
+  //     z += positions[i].z;
+  //   }
+
+  //   return new Cesium.Cartesian3(x / length, y / length, z / length);
+  // }
+
+  // zoomToPolygon(namedPolygon: NamedPolygonEditor) {
+  //   const positions = namedPolygon.editor.getCurrentPoints();
+  //   const center = this.getPolygonCenter(positions);
+
+  //   const cartographicCenter = Cesium.Cartographic.fromCartesian(center);
+  //   const destination = Cesium.Cartesian3.fromDegrees(
+  //     Cesium.Math.toDegrees(cartographicCenter.longitude),
+  //     Cesium.Math.toDegrees(cartographicCenter.latitude),
+  //     1000 // Zoom level
+  //   );
+
+  //   this.camService.cameraFlyTo({
+  //     destination: destination,
+  //   });
+  // }
 }
